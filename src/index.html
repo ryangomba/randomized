@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.onload = function () {
+        var s = 800;
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#eeeeee";
+        ctx.fillRect(0, 0, s, s);
+
+        var type = "radial";
+
+        if (type == "line") {
+            ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
+            var initialX = s/2;
+            var initialY = s;
+            for (var n = 0; n < 100; n++) {
+                var x = initialX;
+                var y = initialY;
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                for (var i = 0; i < s; i++) {
+                    y--;
+                    var r = Math.random();
+                    if (r < 0.5) {
+                        x--;
+                    } else {
+                        x++;
+                    }
+                    ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+        }
+
+        if (type == "cardinal") {
+            ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
+            var initialX = s/2;
+            var initialY = s/2;
+            var x = initialX;
+            var y = initialY;
+            var step = 10;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            while (x > 0 && x <= s && y > 0 && y <= s) {
+                var r = Math.floor(Math.random() * 4);
+                switch (r) {
+                    case 0:
+                        y-=step;
+                        break;
+                    case 1:
+                        x+=step;
+                        break;
+                    case 2:
+                        y+=step;
+                        break;
+                    case 3:
+                        x-=step;
+                        break;
+                }
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+
+        if (type == "radial") {
+            ctx.strokeStyle = "rgba(0, 0, 0, 0.33)";
+            ctx.lineWidth = 0.5
+            ctx.lineJoin = ctx.lineCap = 'round';
+            var initialX = s/2;
+            var initialY = s/2;
+            var x = initialX;
+            var y = initialY;
+            var step = 5;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            while (x > 0 && x <= s && y > 0 && y <= s) {
+                var r = Math.floor(Math.random() * 8);
+                switch (r) {
+                    case 0:
+                        y-=step;
+                        break;
+                    case 1:
+                        x+=step;
+                        break;
+                    case 2:
+                        y+=step;
+                        break;
+                    case 3:
+                        x-=step;
+                        break;
+                    case 4:
+                        y-=step;
+                        x-=step;
+                        break;
+                    case 5:
+                        y-=step;
+                        x+=step;
+                        break;
+                    case 6:
+                        y+=step;
+                        x+=step;
+                        break;
+                    case 7:
+                        y+=step;
+                        x-=step;
+                        break;
+                }
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+
+    }
+    </script>
+  </head>
+  <body>
+    <canvas id="canvas" width="800" height="800" >
+  </body>
+</html>
